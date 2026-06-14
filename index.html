@@ -1,1 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Check 🥰</title>
+    <!-- Importing a cute, rounded font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffe4e1, #ffb6c1);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #4a4a4a;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            border: 4px solid #fff;
+        }
+
+        /* Page layout and animations */
+        .page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.2rem;
+            color: #ff4d6d;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .bold-three-lines {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5rem;
+            color: #ff2a54;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .small-text {
+            font-size: 1.1rem;
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        /* Buttons */
+        button {
+            font-family: 'Fredoka One', cursive;
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #ff2a54;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* Circle Red Button for Scanner */
+        .circle-red-btn {
+            width: 120px;
+            height: 120px;
+            background-color: #ff3333;
+            border-radius: 50%;
+            border: 6px solid #fff;
+            box-shadow: 0 0 20px rgba(255, 51, 51, 0.6);
+            cursor: pointer;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s;
+            animation: pulse 1.5s infinite;
+        }
+
+        .circle-red-btn:active {
+            transform: scale(0.9);
+            box-shadow: 0 0 10px rgba(255, 51, 51, 0.4);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 51, 51, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0); }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            background-color: #f0f0f0;
+            border-radius: 25px;
+            margin: 20px 0;
+            padding: 4px;
+            border: 2px solid #ffb6c1;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 25px;
+            background: linear-gradient(90deg, #ff4d6d, #ff758f);
+            border-radius: 20px;
+            transition: width 0.1s linear;
+        }
+
+        /* Points List */
+        .cute-list {
+            list-style: none;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .cute-list li {
+            font-size: 1.3rem;
+            background: #fff0f3;
+            margin: 12px 0;
+            padding: 15px;
+            border-radius: 20px;
+            border-left: 5px solid #ff4d6d;
+            font-weight: 700;
+        }
+        
+        .final-messages p {
+            background: #fff5f7;
+            padding: 12px;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Page 1 -->
+        <div class="page active" id="page1">
+            <h1>HEYYY CUTIEEEE</h1>
+            <h1>I LOVE YOU BABYYY💗</h1>
+            <p class="small-text">Let's do a love check🥰</p>
+            <button onclick="navigateTo('page2')">Continue</button>
+        </div>
+
+        <!-- Page 2 -->
+        <div class="page" id="page2">
+            <h1>Put your finger here babes</h1>
+            <div class="circle-red-btn" onclick="startScanning()"></div>
+        </div>
+
+        <!-- Page 3 -->
+        <div class="page" id="page3">
+            <h1 id="scanning-status">Scanning</h1>
+            <div class="progress-container">
+                <div class="progress-bar" id="myBar"></div>
+            </div>
+            <button id="next-btn-page3" style="display: none;" onclick="navigateTo('page4')">Next</button>
+        </div>
+
+        <!-- Page 4 -->
+        <div class="page" id="page4">
+            <ul class="cute-list">
+                <li>100% needs kisses😘</li>
+                <li>100% needs cuddles😍</li>
+                <li>100% needs hugs 🥰</li>
+            </ul>
+            <button onclick="navigateTo('page5')">Final result</button>
+        </div>
+
+        <!-- Page 5 -->
+        <div class="page" id="page5">
+            <div class="bold-three-lines">
+                100%<br>needs<br>shreyash 🌟
+            </div>
+            <p style="color: #ff4d6d;">Your kuchupuchu cutie sweetie chinna 😁</p>
+            <p class="small-text">Shreyash wants to tell you something🧐</p>
+            <button onclick="navigateTo('page6')">Next</button>
+        </div>
+
+        <!-- Page 6 -->
+        <div class="page final-messages" id="page6">
+            <p>He loves you so much🫠</p>
+            <p>You're his favourite🤯</p>
+            <p>He says you're the best thing ever😫</p>
+            <p>He'll stay with you even in tough times😁</p>
+            <h1 style="margin-top: 20px;">Byeeeeeee golgappaaaa ❤️</h1>
+            <h1>Stay happyyyy 🥳</h1>
+        </div>
+    </div>
+
+    <script>
+        // Function to switch between pages
+        function navigateTo(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show the target page
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Scanner Logic for Page 3
+        function startScanning() {
+            navigateTo('page3');
+            
+            // Reset state if viewed multiple times
+            const elem = document.getElementById("myBar");
+            const statusText = document.getElementById("scanning-status");
+            const nextBtn = document.getElementById("next-btn-page3");
+            
+            elem.style.width = "0%";
+            statusText.innerText = "Scanning";
+            nextBtn.style.display = "none";
+
+            let width = 0;
+            // Adjust the speed here (lower interval = faster scanning)
+            let id = setInterval(frame, 35); 
+
+            function frame() {
+                if (width >= 100) {
+                    clearInterval(id);
+                    statusText.innerText = "Scanning complete";
+                    nextBtn.style.display = "block"; // Show the next button
+                } else {
+                    width++;
+                    elem.style.width = width + '%';
+                    
+                    // Cute effect: adding shifting dots to "Scanning" text
+                    if (width % 10 === 0 && width < 100) {
+                        if (statusText.innerText === "Scanning...") statusText.innerText = "Scanning";
+                        else statusText.innerText += ".";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
 
